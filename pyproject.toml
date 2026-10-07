@@ -1,0 +1,21 @@
+[project]
+name = "atliq-hr-assist"
+version = "0.1.0"
+description = "MCP server exposing AtliQ HRMS tools (employees, leave, meetings, tickets, email)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.9.4,<2",
+    "python-dotenv>=1.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# Root has both the `hrms` package and loose modules (server/utils/emails),
+# so list what ships explicitly rather than relying on auto-discovery.
+[tool.hatch.build.targets.wheel]
+packages = ["hrms"]
+only-include = ["hrms", "server.py", "utils.py", "emails.py"]
+sources = ["."]
